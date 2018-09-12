@@ -35,7 +35,7 @@ public class UserApi {
     }
 
     @DeleteMapping("/{userId}")
-    public String deleteOneById(@PathVariable Integer userId) {
+    public List<User> deleteOneById(@PathVariable Integer userId) {
         return  userService.deleteOneById(userId);
     }
 

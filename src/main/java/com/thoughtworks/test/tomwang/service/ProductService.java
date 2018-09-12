@@ -21,7 +21,7 @@ public class ProductService {
         return  productRepository.findOneByName(name);
     }
 
-    public String deleteProductByName(String name) {
+    public List<Product> deleteProductByName(String name) {
        return  productRepository.deleteOneByName(name);
     }
 }

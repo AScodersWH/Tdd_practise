@@ -39,13 +39,14 @@ public class ProductServiceTest {
         product2.setName("ellen");
         product2.setPrice("1314");
         List<Product> products = new ArrayList<>();
-
+        List<Product> deletedProducts = new ArrayList<>();
+        deletedProducts.add(product2);
         products.add(product1);
         products.add(product2);
         Mockito.when(productRepository.findAll()).thenReturn(products);
         Mockito.when(productRepository.findOneByName("ellen")).thenReturn(product2);
         Mockito.when(productRepository.findOneByName("tom")).thenReturn(product1);
-
+        Mockito.when(productRepository.deleteOneByName("tom")).thenReturn(deletedProducts);
     }
 
     @Test
@@ -73,7 +74,12 @@ public class ProductServiceTest {
 
     @Test
     public  void should_delete_product_by_name_successfully(){
-        assertEquals(productService.deleteProductByName("tom"),"ok");
+        Product product2 = new Product();
+        product2.setName("ellen");
+        product2.setPrice("1314");
+        List<Product> deletedProducts = new ArrayList<>();
+        deletedProducts.add(product2);
+        assertEquals(productService.deleteProductByName("tom"),deletedProducts);
     }
 
     @After

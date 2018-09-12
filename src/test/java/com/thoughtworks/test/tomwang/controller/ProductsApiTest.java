@@ -57,7 +57,7 @@ public class ProductsApiTest {
 
     @Test
     public void should_delete_one_by_name_successfully() throws Exception {
-        mockMvc.perform(delete("/product/ellen"))
+        mockMvc.perform(delete("/products/ellen"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

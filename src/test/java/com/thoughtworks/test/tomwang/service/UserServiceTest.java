@@ -36,11 +36,14 @@ public class UserServiceTest {
         user2.setId(2);
         user2.setUserName("23131231");
         List<User> users = new ArrayList<>();
+        List<User> deletedUsers = new ArrayList<>();
         users.add(user1);
         users.add(user2);
+        deletedUsers.add(user2);
         Mockito.when(userRepository.findAll()).thenReturn(users);
         Mockito.when(userRepository.findOneById(1)).thenReturn(user1);
         Mockito.when(userRepository.findOneById(2)).thenReturn(user2);
+        Mockito.when(userRepository.deleteOneById(1)).thenReturn(deletedUsers);
     }
 
     @Test
@@ -67,7 +70,12 @@ public class UserServiceTest {
 
     @Test
     public void should_delete_user1_successfully(){
-        assertEquals(userService.deleteOneById(1),"WRONG");
+        User user2 = new User();
+        user2.setId(2);
+        user2.setUserName("23131231");
+        List<User> deletedUsers = new ArrayList<>();
+        deletedUsers.add(user2);
+        assertEquals(userService.deleteOneById(1),deletedUsers);
     }
 
     @After

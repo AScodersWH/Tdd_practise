@@ -42,7 +42,7 @@ public class ProductsApi {
     }
 
     @DeleteMapping("/{name}")
-    public String  deleteProductByName(@PathVariable String name){
+    public List<Product>  deleteProductByName(@PathVariable String name){
         return productService.deleteProductByName(name);
     }
 
