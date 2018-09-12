@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findAll();
     Product findOneByName(String name);
+    String deleteOneByName(String name);
 }
