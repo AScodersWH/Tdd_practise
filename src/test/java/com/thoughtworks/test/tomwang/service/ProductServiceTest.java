@@ -68,7 +68,7 @@ public class ProductServiceTest {
         Product product = new Product();
         product.setName("tom");
         product.setPrice("1231");
-        assertEquals(productRepository.findOneByName("tom"),product);
+        assertEquals(productService.getOneByName("tom"),product);
     }
 
     @After
