@@ -63,8 +63,16 @@ public class ProductServiceTest {
         assertEquals(productService.getAllProducts(),products);
     }
 
+    @Test
+    public void should_return_product_by_name(){
+        Product product = new Product();
+        product.setName("tom");
+        product.setPrice("1231");
+        assertEquals(productRepository.findOneByName("tom"),product);
+    }
+
     @After
     public void resetProduct(){
-
+        Mockito.reset(productRepository);
     }
 }
