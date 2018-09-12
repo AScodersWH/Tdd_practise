@@ -2,6 +2,8 @@ package com.thoughtworks.test.tomwang.controller;
 
 
 import com.thoughtworks.test.tomwang.model.Product;
+import com.thoughtworks.test.tomwang.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductsApi {
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @PostMapping
-    public ResponseEntity create(@RequestBody Product product) {
-        return new ResponseEntity(HttpStatus.CREATED);
+    public void  create(@RequestBody Product product) {
+        productRepository.save(product);
     }
 
 }
