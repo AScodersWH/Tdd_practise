@@ -41,7 +41,6 @@ public class ProductsApiTest {
 
     @Test
     public void should_get_products_successfully() throws Exception {
-        DocumentContext context = JsonPath.parse("{name:tom,price:1231}");
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andReturn();

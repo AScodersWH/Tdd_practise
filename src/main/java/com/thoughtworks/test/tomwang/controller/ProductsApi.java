@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductsApi {
@@ -21,6 +23,11 @@ public class ProductsApi {
     @PostMapping
     public void  create(@RequestBody Product product) {
         productRepository.save(product);
+    }
+
+    @RequestMapping
+    public List<Product> getUsers() {
+        return productRepository.findAll();
     }
 
 }
