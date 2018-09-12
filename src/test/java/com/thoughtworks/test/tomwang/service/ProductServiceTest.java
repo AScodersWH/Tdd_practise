@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,6 +26,9 @@ public class ProductServiceTest {
 
     @MockBean
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Before
     public void setProduct(){
@@ -56,7 +60,7 @@ public class ProductServiceTest {
 
         products.add(product1);
         products.add(product2);
-        assertEquals(productRepository.findAll(),products);
+        assertEquals(productService.getAllProducts(),products);
     }
 
     @After
