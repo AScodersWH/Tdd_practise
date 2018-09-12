@@ -63,4 +63,12 @@ public class UserApiTest {
                 .andExpect(status().is4xxClientError())
                 .andReturn();
     }
+
+
+    @Test
+    public void should_() throws Exception {
+        mockMvc.perform(post("/products"))
+                .andExpect(status().isCreated())
+                .andReturn();
+    }
 }
