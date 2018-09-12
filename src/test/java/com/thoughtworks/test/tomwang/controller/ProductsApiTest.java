@@ -46,4 +46,10 @@ public class ProductsApiTest {
                 .andReturn();
     }
 
+    @Test
+    public void should_get_product_by_name_successfully() throws Exception {
+        mockMvc.perform(get("/products/tom"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 }
