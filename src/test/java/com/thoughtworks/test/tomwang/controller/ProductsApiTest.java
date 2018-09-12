@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,6 +50,14 @@ public class ProductsApiTest {
     @Test
     public void should_get_product_by_name_successfully() throws Exception {
         mockMvc.perform(get("/products/tom"))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+
+
+    @Test
+    public void should_delete_one_by_name_successfully() throws Exception {
+        mockMvc.perform(delete("/product/ellen"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

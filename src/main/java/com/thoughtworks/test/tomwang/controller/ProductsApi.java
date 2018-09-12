@@ -39,4 +39,6 @@ public class ProductsApi {
     public Product getUserByName(@PathVariable String name) {
         return productService.getOneByName(name);
     }
+
+
 }
