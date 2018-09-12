@@ -1,5 +1,7 @@
 package com.thoughtworks.test.tomwang.controller;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import com.thoughtworks.test.tomwang.model.User;
 import com.thoughtworks.test.tomwang.repository.UserRepository;
 import com.thoughtworks.test.tomwang.service.UserService;
@@ -58,9 +60,14 @@ public class UserApiTest {
 
     @Test
     public void should_achieve_post_method() throws Exception {
+        DocumentContext context = JsonPath.parse("{\n`userName`:`tomwang`,\n" +
+                "`passWord`:`ellen`,\n" +
+                "`phone`:`1312312`,\n" +
+                "`mail`:`31241231`}");
         mockMvc.perform(post("/user")
-                .param("ss","ss"))
-                .andExpect(status().is4xxClientError())
+                .content(context.jsonString())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andReturn();
     }
 
