@@ -60,10 +60,10 @@ public class UserApiTest {
 
     @Test
     public void should_achieve_post_method() throws Exception {
-        DocumentContext context = JsonPath.parse("{\n`userName`:`tomwang`,\n" +
-                "`passWord`:`ellen`,\n" +
-                "`phone`:`1312312`,\n" +
-                "`mail`:`31241231`}");
+        DocumentContext context = JsonPath.parse("{\nuserName:31231,\n" +
+                "passWord:ellen,\n" +
+                "phone:131231,\n" +
+                "mail:31241231}");
         mockMvc.perform(post("/user")
                 .content(context.jsonString())
                 .contentType(MediaType.APPLICATION_JSON))
