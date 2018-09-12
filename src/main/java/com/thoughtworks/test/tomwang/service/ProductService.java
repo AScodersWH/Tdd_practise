@@ -20,4 +20,8 @@ public class ProductService {
     public Product getOneByName(String name){
         return  productRepository.findOneByName(name);
     }
+
+    public String deleteProductByName(String name) {
+       return  productRepository.deleteOneByName(name);
+    }
 }

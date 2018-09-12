@@ -71,6 +71,11 @@ public class ProductServiceTest {
         assertEquals(productService.getOneByName("tom"),product);
     }
 
+    @Test
+    public  void should_delete_product_by_name_successfully(){
+        assertEquals(productService.deleteProductByName("tom"),"ok");
+    }
+
     @After
     public void resetProduct(){
         Mockito.reset(productRepository);
