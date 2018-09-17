@@ -24,7 +24,9 @@ public class UserService {
         return userRepository.findOneById(id);
     }
 
-    public List<User> deleteOneById(Integer id) {
-         return userRepository.deleteOneById(id);
+    public String deleteOneById(Integer id) {
+        userRepository.deleteById(id);
+        if (userRepository.findOneById(id) == null) return "OK";
+        else return "WRONG";
     }
 }

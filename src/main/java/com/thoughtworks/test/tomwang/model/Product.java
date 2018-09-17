@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +23,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
     private int id;
-
     @JsonProperty
     private String name;
-
     @JsonProperty
     private String price;
+    @Column(name = "user_id")
+    private Integer user_id;
 }

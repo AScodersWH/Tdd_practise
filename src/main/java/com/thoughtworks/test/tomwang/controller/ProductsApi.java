@@ -2,11 +2,9 @@ package com.thoughtworks.test.tomwang.controller;
 
 
 import com.thoughtworks.test.tomwang.model.Product;
-import com.thoughtworks.test.tomwang.repository.ProductRepository;
+import com.thoughtworks.test.tomwang.repository.UserRepository;
 import com.thoughtworks.test.tomwang.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,33 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
 public class ProductsApi {
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private ProductService productService;
 
-    @PostMapping
-    public void  create(@RequestBody Product product) {
-        productRepository.save(product);
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("users/{userId}/products")
+    public List<Product> create(@PathVariable Integer userId, @RequestBody Product product) {
+       return productService.store(userId,product);
     }
 
-    @RequestMapping
-    public List<Product> getUsers() {
-        return productService.getAllProducts();
+    @RequestMapping("users/{userId}/products")
+    public List<Product> getUsers(@PathVariable Integer userId) {
+        return productService.getAllProducts(userId);
     }
 
-    @RequestMapping("/{name}")
-    public Product getUserByName(@PathVariable String name) {
-        return productService.getOneByName(name);
+    @RequestMapping("users/{userId}/products/{name}")
+    public Product getUserByName(@PathVariable Integer userId, @PathVariable String name) {
+        return productService.getOneByName(userId, name);
     }
 
-    @DeleteMapping("/{name}")
-    public List<Product>  deleteProductByName(@PathVariable String name){
-        return productService.deleteProductByName(name);
+    @DeleteMapping("users/{userId}/products/{name}")
+    public List<Product> deleteProductByName(@PathVariable Integer userId, @PathVariable String name) {
+       return productService.deleteProductByName(userId, name);
     }
 
 

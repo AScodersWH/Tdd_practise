@@ -1,7 +1,8 @@
 package com.thoughtworks.test.tomwang.service;
 
 import com.thoughtworks.test.tomwang.model.Product;
-import com.thoughtworks.test.tomwang.repository.ProductRepository;
+import com.thoughtworks.test.tomwang.model.User;
+import com.thoughtworks.test.tomwang.repository.UserRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 public class ProductServiceTest {
 
     @MockBean
-    private ProductRepository productRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private ProductService productService;
@@ -43,10 +44,10 @@ public class ProductServiceTest {
         deletedProducts.add(product2);
         products.add(product1);
         products.add(product2);
-        Mockito.when(productRepository.findAll()).thenReturn(products);
-        Mockito.when(productRepository.findOneByName("ellen")).thenReturn(product2);
-        Mockito.when(productRepository.findOneByName("tom")).thenReturn(product1);
-        Mockito.when(productRepository.deleteOneByName("tom")).thenReturn(deletedProducts);
+        User user = new User();
+
+        user.setProducts(products);
+        Mockito.when(userRepository.findOneById(1)).thenReturn(user);
     }
 
     @Test
@@ -61,7 +62,7 @@ public class ProductServiceTest {
 
         products.add(product1);
         products.add(product2);
-        assertEquals(productService.getAllProducts(),products);
+        assertEquals(productService.getAllProducts(1),products);
     }
 
     @Test
@@ -69,21 +70,46 @@ public class ProductServiceTest {
         Product product = new Product();
         product.setName("tom");
         product.setPrice("1231");
-        assertEquals(productService.getOneByName("tom"),product);
+        assertEquals(productService.getOneByName(1,"tom"),product);
     }
 
     @Test
     public  void should_delete_product_by_name_successfully(){
+        Product product1 = new Product();
+        product1.setName("tom");
+        product1.setPrice("1231");
         Product product2 = new Product();
         product2.setName("ellen");
         product2.setPrice("1314");
+        List<Product> products = new ArrayList<>();
         List<Product> deletedProducts = new ArrayList<>();
         deletedProducts.add(product2);
-        assertEquals(productService.deleteProductByName("tom"),deletedProducts);
+        products.add(product1);
+        products.add(product2);
+        assertEquals(productService.deleteProductByName(1,"tom"),deletedProducts);
+    }
+
+    @Test
+    public void should_store_successfully(){
+        Product product1 = new Product();
+        product1.setName("tom");
+        product1.setPrice("1231");
+        Product product2 = new Product();
+        product2.setName("ellen");
+        product2.setPrice("1314");
+        Product product3 = new Product();
+        product3.setName("wda");
+        product3.setPrice("1231");
+        List<Product> products = new ArrayList<>();
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+
+        assertEquals(productService.store(1,product3),products);
     }
 
     @After
     public void resetProduct(){
-        Mockito.reset(productRepository);
+        Mockito.reset(userRepository);
     }
 }

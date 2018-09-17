@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAll();
+
     User findOneById(Integer id);
-    List<User> deleteOneById(Integer id);
 }

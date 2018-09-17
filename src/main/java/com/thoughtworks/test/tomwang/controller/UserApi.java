@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserApi {
     @Autowired
     UserService userService;
 
     @PostMapping
-    public User register(@RequestBody User user) {
-        return userService.save(user);
+    public void register(@RequestBody User user) {
+        userService.save(user);
     }
 
     @GetMapping
@@ -35,8 +35,8 @@ public class UserApi {
     }
 
     @DeleteMapping("/{userId}")
-    public List<User> deleteOneById(@PathVariable Integer userId) {
-        return  userService.deleteOneById(userId);
+    public String deleteOneById(@PathVariable Integer userId) {
+        return userService.deleteOneById(userId);
     }
 
 

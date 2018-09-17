@@ -3,6 +3,7 @@ CREATE table user(
     user_name VARCHAR(255),
     pass_word VARCHAR(255),
     phone VARCHAR(255),
-    mail VARCHAR(255)
+    mail VARCHAR(255),
+    user_id INTEGER
 );
 

@@ -2,7 +2,6 @@ package com.thoughtworks.test.tomwang.controller;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-import com.thoughtworks.test.tomwang.model.User;
 import com.thoughtworks.test.tomwang.repository.UserRepository;
 import com.thoughtworks.test.tomwang.service.UserService;
 import org.junit.Test;
@@ -39,32 +38,30 @@ public class UserApiTest {
 
     @Test
     public void should_achieve_delete_method() throws Exception {
-        mockMvc.perform(delete("/user/1"))
+        mockMvc.perform(delete("/users/1"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
     @Test
     public void should_achieve_get_user_by_id_method() throws Exception {
-        mockMvc.perform(get("/user/1"))
+        mockMvc.perform(get("/users/1"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
     @Test
     public void should_achieve_get_users_method() throws Exception {
-        mockMvc.perform(get("/user"))
+        mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
 
     @Test
     public void should_achieve_post_method() throws Exception {
-        DocumentContext context = JsonPath.parse("{\nuserName:31231,\n" +
-                "passWord:ellen,\n" +
-                "phone:131231,\n" +
-                "mail:31241231}");
-        mockMvc.perform(post("/user")
+        DocumentContext context = JsonPath.parse("{userName:31231,passWord:ellen," +
+                "phone:131231,mail:31241231}");
+        mockMvc.perform(post("/users")
                 .content(context.jsonString())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

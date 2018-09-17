@@ -1,7 +1,7 @@
 package com.thoughtworks.test.tomwang.service;
 
 import com.thoughtworks.test.tomwang.model.Product;
-import com.thoughtworks.test.tomwang.repository.ProductRepository;
+import com.thoughtworks.test.tomwang.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,38 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private UserRepository userRepository;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Product> getAllProducts(Integer userId) {
+        return userRepository.findOneById(userId).getProducts();
     }
 
-    public Product getOneByName(String name){
-        return  productRepository.findOneByName(name);
+    public Product getOneByName(Integer userId, String name) {
+        List<Product> products = userRepository.findOneById(userId).getProducts();
+        for (Product product : products) {
+            if (product.getName().equals(name)) return product;
+        }
+        return null;
     }
 
-    public List<Product> deleteProductByName(String name) {
-       return  productRepository.deleteOneByName(name);
+    public List<Product> deleteProductByName(Integer userId, String name) {
+        List<Product> products = userRepository.findOneById(userId).getProducts();
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                products.remove(product);
+                break;
+            }
+        }
+        userRepository.findOneById(userId).setProducts(products);
+        userRepository.save(userRepository.findOneById(userId));
+        return products;
+    }
+
+    public List<Product> store(Integer userId, Product product) {
+        List<Product> products = userRepository.findOneById(userId).getProducts();
+        products.add(product);
+        userRepository.findOneById(userId).setProducts(products);
+        userRepository.save(userRepository.findOneById(userId));
+        return products;
     }
 }
